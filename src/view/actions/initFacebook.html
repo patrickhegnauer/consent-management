@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Action</title>
+    <link rel="stylesheet"  href="../global.css">
+    <!-- Include global variables first -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-global.css">
+
+<!-- Include only the scales your application needs -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-medium.css">
+
+
+<!-- Include only the colorstops your application needs -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-light.css">
+
+<!-- Include index-vars.css for all components you need -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/page/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/typography/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/icon/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/button/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/textfield/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/accordion/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/actionbutton/dist/index-vars.css">
+  </head>
+  <body class="spectrum spectrum--light">
+    <div class="container">
+      <h3>Init Facebook Tag</h3>
+      <p>This action is required to be set on Library Loaded. This Action should be loaded before add Conversion Actions</p>
+      <h2 class="spectrum-Heading spectrum-Heading--sizeS">Configuration</h2>
+      <hr class="spectrum-Divider spectrum-Divider--sizeM">
+      <div id="gtagDiv">
+      <label>
+        Facebook Global ID:
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="fbId" placeholder="Enter ID"></div>
+    </div>
+    </div>
+
+    <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
+    <script>
+
+      var fbGLobalId = document.querySelector('#fbId');  
+
+      window.extensionBridge.register({
+        init: function(info) {
+          if (info.settings) {
+            fbId.value = info.settings.fbGLobalId
+          }
+        },
+
+        getSettings: function() {
+          return {
+            fbGLobalId :  fbId.value,
+       
+      };
+        },
+
+        validate: function() {
+          fbGLobalId.invalid = !fbGLobalId.value;
+
+      if(fbGLobalId.invalid){
+        fbGLobalId.classList.add('invalid')
+      }
+      
+
+      return !fbGLobalId.invalid
+        }
+      });
+    </script>
+  </body>
+</html>

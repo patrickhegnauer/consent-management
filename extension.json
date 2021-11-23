@@ -1,0 +1,65 @@
+{
+  "displayName": "CSS Consent Management",
+  "iconPath": "src/resources/icons/css_logo.svg",
+  "name": "css-consent-management",
+  "platform": "web",
+  "version": "1.1.0",
+  "description": "Set consent based on current regulations and CSS Standards",
+  "author": {
+    "name": "Patrick Hegnauer"
+  },
+  "viewBasePath": "src/view/",
+  "configuration": {
+    "viewPath": "configuration/configuration.html",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "actions": [
+    {
+      "displayName": "Init Cookiebot",
+      "name": "init-cookiebot",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/initCookiebot.js",
+      "viewPath": "actions/initCookiebot.html"
+    },
+    {
+      "displayName": "Set Consent Object",
+      "name": "set-consent-object",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/setConsentObject.js"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Check Consent Cookie",
+      "name": "check-marketing-flag",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/conditions/checkMarketingFlag.js"
+    },
+    {
+      "displayName": "Check Consent",
+      "name": "check-consent",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/conditions/checkConsent.js"
+    }
+  ]
+}

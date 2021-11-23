@@ -1,0 +1,16 @@
+body {
+    padding: 12px;
+  }
+
+label {
+    line-height: 36px;
+    margin-right: 8px;
+    font: bold 12px sans-serif;
+    display: inline-block;
+    text-align: right;
+    width: 140px;
+  }
+
+  .invalid{
+    border: 1px solid red!important;
+  }

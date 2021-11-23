@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" class="spectrum spectrum--medium spectrum--light">
+  <head>
+    <meta charset="UTF-8">
+    <title>CSS Standard Consent Management</title>
+ 
+    <link rel="stylesheet"  href="../global.css">
+    <!-- Include global variables first -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-global.css">
+
+<!-- Include only the scales your application needs -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-medium.css">
+
+<!-- Include only the colorstops your application needs -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-light.css">
+
+<!-- Include index-vars.css for all components you need -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/page/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/typography/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/icon/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/button/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/textfield/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/accordion/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/actionbutton/dist/index-vars.css">
+  </head>
+  <body class="spectrum spectrum--light">
+    <div class="container">
+      <h3>Add Consent Management to your Property</h3>
+      <p>Activate components based on your requirements</p>
+      <div id="cookiebot_div">
+      <label>
+        Cookiebot Script ID: 
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiebot_ID" placeholder="Cookiebot ID"></div>
+    </div>
+    <div id="cookiename_div">
+      <label> <br>
+        Consent Cookie Name: 
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiename" placeholder="Cookie Name"></div>
+    </div>
+    <h2 class="spectrum-Heading spectrum-Heading--sizeS">Consent Service</h2>
+      <hr class="spectrum-Divider spectrum-Divider--sizeM">
+    <div id="service_div" style="margin-bottom:10px">
+      <label>
+        ECID Service
+        <input type="checkbox" class="spectrum-Checkbox-input" id="ecid_service">
+      </label>
+      <label>
+        WEB SDK
+        <input type="checkbox" class="spectrum-Checkbox-input" id="web_sdk">
+      </label>
+    </div>
+      <h2 class="spectrum-Heading spectrum-Heading--sizeS">Marketing Tags</h2>
+      <hr class="spectrum-Divider spectrum-Divider--sizeM">
+      <div id="facebook_div">
+      <label> <br>
+        Facebook 
+        <input type="checkbox" id="facebook_flag">
+      </label>
+          <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="facebook_element" placeholder="Name of Data Element"></div>
+          <button style="margin:5px" id="facebook_button" class="spectrum-ActionButton spectrum-ActionButton--sizeM">
+            <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
+              <defs>
+                <style>
+                  .a {
+                    fill: #6E6E6E;
+                  }
+                </style>
+              </defs>
+              <title>S Data 18 N</title>
+              <rect id="Canvas" fill="#ff13dc" opacity="0" width="18" height="18" /><ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
+              <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
+              <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
+            </svg>
+          </button>
+        </div>
+    <div id="bing_div">
+      <label> <br>
+        Bing 
+        <input type="checkbox" id="bing_flag">
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="bing_element" placeholder="Name of Data Element"></div>
+      <button style="margin:5px" id="bing_button" class="spectrum-ActionButton spectrum-ActionButton--sizeM">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
+          <defs>
+            <style>
+              .a {
+                fill: #6E6E6E;
+              }
+            </style>
+          </defs>
+          <title>S Data 18 N</title>
+          <rect id="Canvas" fill="#ff13dc" opacity="0" width="18" height="18" /><ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
+          <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
+          <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
+        </svg>
+      </button>
+    </div>
+    <div id="floodlight_div">
+      <label> <br>
+        Floodlight 
+        <input type="checkbox" id="floodlight_flag">
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="floodlight_element" placeholder="Name of Data Element"></div>
+      <button style="margin:5px" id="floodlight_button" class="spectrum-ActionButton spectrum-ActionButton--sizeM">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
+          <defs>
+            <style>
+              .a {
+                fill: #6E6E6E;
+              }
+            </style>
+          </defs>
+          <title>S Data 18 N</title>
+          <rect id="Canvas" fill="#ff13dc" opacity="0" width="18" height="18" /><ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
+          <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
+          <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
+        </svg>
+      </button>
+    </div>
+    <div id="adwords_div">
+      <label> <br>
+        AdWords 
+        <input type="checkbox" id="adwords_flag">
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="adwords_element" placeholder="Name of Data Element"></div>
+      <button style="margin:5px" id="adwords_button" class="spectrum-ActionButton spectrum-ActionButton--sizeM">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
+          <defs>
+            <style>
+              .a {
+                fill: #6E6E6E;
+              }
+            </style>
+          </defs>
+          <title>S Data 18 N</title>
+          <rect id="Canvas" fill="#ff13dc" opacity="0" width="18" height="18" /><ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
+          <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
+          <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
+        </svg>
+      </button>
+    </div>
+    </div>
+
+    <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
+    <script>
+
+      var cookie_name = document.querySelector("#cookiename");
+      var cookiebotID = document.querySelector("#cookiebot_ID");
+      var ecidService = document.querySelector("#ecid_service");
+      var websdk = document.querySelector("#web_sdk");
+
+      var facebookFlag = document.querySelector("#facebook_flag");
+      var facebookElement = document.querySelector("#facebook_element")
+
+      var bingFlag = document.querySelector("#bing_flag");
+      var bingElement = document.querySelector("#bing_element")
+
+      var floodlightFlag = document.querySelector("#floodlight_flag");
+      var floodlightElement = document.querySelector("f#loodlight_element")
+
+      var adwordsFlag = document.querySelector("#adwords_flag");
+      var adwordsElement = document.querySelector("#adwords_element")
+
+      document.querySelector("#facebook_button").addEventListener("click", function() {
+      window.extensionBridge.openDataElementSelector().then(function(dataElement) { 
+        facebookElement.value = dataElement
+});
+      });
+      document.querySelector("#bing_button").addEventListener("click", function() {
+      window.extensionBridge.openDataElementSelector().then(function(dataElement) { 
+        bingElement.value = dataElement
+});
+      });
+      document.querySelector("#floodlight_button").addEventListener("click", function() {
+      window.extensionBridge.openDataElementSelector().then(function(dataElement) { 
+        floodlightElement.value = dataElement
+});
+      });
+      document.querySelector("#adwords_button").addEventListener("click", function() {
+      window.extensionBridge.openDataElementSelector().then(function(dataElement) { 
+        adwordsElement.value = dataElement
+});
+      });
+
+
+      window.extensionBridge.register({
+        init: function(info) {
+          if (info.settings) {
+            // TODO Populate form values from persisted settings.
+            cookiename.value = info.settings.cookieName;
+            cookiebot_ID.value = info.settings.cookiebotID;
+            ecid_service.checked = info.settings.ecidService;
+            web_sdk.checked = info.settings.websdk;
+            facebook_flag.checked = info.settings.facebookFlag;
+            facebook_element.value = info.settings.facebookElement;
+            bing_flag.checked = info.settings.bingFlag;
+            bing_element.value = info.settings.bingElement;
+            floodlight_flag.checked = info.settings.floodlightFlag;
+            floodlight_element.value = info.settings.floodlightElement;
+            adwords_flag.checked = info.settings.adwordsFlag;
+            adwords_element.value = info.settings.adwordsElement;
+          }
+        },
+
+        getSettings: function() {
+          // TODO Return settings object from form values.
+          return{
+
+            cookieName : cookiename.value,
+            cookiebotID : cookiebot_ID.value,
+            ecidService: ecid_service.checked,
+            websdk: web_sdk.checked,
+            facebookFlag :facebook_flag.checked,
+            bingFlag : bing_flag.checked,
+            floodlightFlag : floodlight_flag.checked,
+            adwordsFlag : adwords_flag.checked,
+            facebookElement : facebook_element.value,
+            bingElement : bing_element.value,
+            floodlightElement : floodlight_element.value,
+            adwordsElement : adwords_element.value
+          }
+        },
+
+        validate: function() {
+          // TODO Return whether settings are valid.
+
+          var flag = false;
+
+          cookiebotID.invalid = !cookiebotID.value;
+          cookie_name.invalid = !cookie_name.value;
+
+          if(cookiebotID.invalid){
+            cookiebotID.classList.add('invalid');
+          }
+          if(cookie_name.invalid){
+            cookie_name.classList.add('invalid');
+          }
+          
+          if(cookiebotID.value && cookie_name.value && (ecidService.checked || websdk.checked)){
+            flag = true;
+          }
+
+
+          return flag
+
+        }
+      });
+    </script>
+  </body>
+</html>

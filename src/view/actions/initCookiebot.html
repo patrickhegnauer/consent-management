@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" class="spectrum spectrum--medium spectrum--light">
+  <head>
+    <meta charset="UTF-8">
+    <title>Action</title>
+    <link rel="stylesheet"  href="../global.css">
+    <!-- Include global variables first -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-global.css">
+
+<!-- Include only the scales your application needs -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-medium.css">
+
+
+<!-- Include only the colorstops your application needs -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/vars/dist/spectrum-light.css">
+
+<!-- Include index-vars.css for all components you need -->
+<link rel="stylesheet" href="../node_modules/@spectrum-css/page/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/typography/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/icon/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/button/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/textfield/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/accordion/dist/index-vars.css">
+<link rel="stylesheet" href="../node_modules/@spectrum-css/actionbutton/dist/index-vars.css">
+  </head>
+  <body class="spectrum spectrum--light">
+    <div class="container">
+      <h3>Init Cookiebot</h3>
+      <p>This action is required to be set on Library Loaded.</p>
+      <h2 class="spectrum-Heading spectrum-Heading--sizeS">Configuration</h2>
+      <hr class="spectrum-Divider spectrum-Divider--sizeM">
+      <div id="language_div">
+        <label> <br>
+          Language Element: 
+        </label>
+        <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="language_element" placeholder="Name of Data Element"></div>
+        <button style="margin:5px" id="language_button" class="spectrum-ActionButton spectrum-ActionButton--sizeM">
+          <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
+            <defs>
+              <style>
+                .a {
+                  fill: #6E6E6E;
+                }
+              </style>
+            </defs>
+            <title>S Data 18 N</title>
+            <rect id="Canvas" fill="#ff13dc" opacity="0" width="18" height="18" /><ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
+            <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
+            <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
+    <script>
+
+      var language = document.querySelector('#language_element');  
+
+      document.querySelector("#language_button").addEventListener("click", function() {
+      window.extensionBridge.openDataElementSelector().then(function(dataElement) { 
+        language.value = dataElement
+});
+      });
+
+      window.extensionBridge.register({
+        init: function(info) {
+          if (info.settings) {
+            language_element.value = info.settings.language
+          }
+        },
+
+        getSettings: function() {
+          return {
+            language :  language_element.value,
+       
+      };
+        },
+
+        validate: function() {
+            language.invalid = !language.value;
+
+      if(language.invalid){
+        language.classList.add('invalid')
+      }
+      
+
+      return !language.invalid
+        }
+      });
+    </script>
+  </body>
+</html>
