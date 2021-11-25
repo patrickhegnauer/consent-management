@@ -3,7 +3,7 @@
   "iconPath": "src/resources/icons/css_logo.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
@@ -38,6 +38,26 @@
         "properties": {}
       },
       "libPath": "src/lib/actions/setConsentObject.js"
+    },
+    {
+      "displayName": "Show Cookiebot",
+      "name": "show-cookiebot",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/showCookiebot.js"
+    },
+    {
+      "displayName": "Show Cookie Settings",
+      "name": "show-cookie-settings",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/showCookieSettings.js"
     }
   ],
   "conditions": [
