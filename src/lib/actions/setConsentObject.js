@@ -6,11 +6,14 @@ module.exports = function(settings) {
 
   if(extensionSettings.ecidService){
 
+    var cookie = _satellite.cookie.get(extensionSettings.cookieName);
+
+    if(cookie === 'true' || cookie === 'stats'){
     var consent_array = []
     consent_array.push("aa","ecid","target");
     adobe.optIn.approve(consent_array,true);
     adobe.optIn.complete();
-  
+  }
   }
 
   if(extensionSettings.websdk){

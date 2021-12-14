@@ -60,9 +60,17 @@ module.exports = function(settings) {
        var p = Cookiebot.consent.preferences,
             s = Cookiebot.consent.statistics,
             m = Cookiebot.consent.marketing;
-            cookie_consent_state.preferences = p ? "true" : "false";
-            cookie_consent_state.statistics = s ? "true" : "false";
-            cookie_consent_state.marketing = m ? "true" : "false";
+       var consentFlag;
+
+       if(m && s){
+        consentFlag = "true";
+       }
+       if(m && !s){
+        consentFlag = "marketing"; 
+      }
+      if(!m && s){
+        consentFlag = "stats"; 
+      }
 
           //check if its via ecid service
            if(extensionSettings.ecidService){
@@ -70,15 +78,11 @@ module.exports = function(settings) {
               consent_array.push("aa");
               consent_array.push("ecid");
               consent_array.push("target");
-              }
-             
-             if(m){
-              marketing_flag = "in"
-            }
+              
 
             adobe.optIn.approve(consent_array,true);
             adobe.optIn.complete();
-
+          }
           }
             //check if its websdk
             if(extensionSettings.websdk){
@@ -91,7 +95,7 @@ module.exports = function(settings) {
               });
             }
     
-            _satellite.cookie.set(extensionSettings.cookieName, m ? "true" : "false",{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+            _satellite.cookie.set(extensionSettings.cookieName, consentFlag,{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
           
       
       //send custom event to trigger rules

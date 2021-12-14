@@ -3,7 +3,7 @@
   "iconPath": "src/resources/icons/css_logo.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "1.2.0",
+  "version": "1.3.2",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
@@ -79,7 +79,8 @@
         "type": "object",
         "properties": {}
       },
-      "libPath": "src/lib/conditions/checkConsent.js"
+      "libPath": "src/lib/conditions/checkConsent.js",
+      "viewPath": "condition/checkConsent.html"
     }
   ]
 }
