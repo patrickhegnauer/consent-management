@@ -22,11 +22,12 @@
 <link rel="stylesheet" href="../node_modules/@spectrum-css/textfield/dist/index-vars.css">
 <link rel="stylesheet" href="../node_modules/@spectrum-css/accordion/dist/index-vars.css">
 <link rel="stylesheet" href="../node_modules/@spectrum-css/actionbutton/dist/index-vars.css">
+
   </head>
   <body class="spectrum spectrum--light">
     <div class="container">
       <h3>Add Consent Management to your Property</h3>
-      <p>Activate components based on your requirements</p>
+      <p>Activate components based on your requirements. You will find the Cookiebot Script ID on <a href="https://manage.cookiebot.com" target="_blank">this Link</a>. The Consent Cookie Name should be <b>sat_track</b> for Client Side - and <b>consent_css</b> for Server Side implementations.</p>
       <div id="cookiebot_div">
       <label>
         Cookiebot Script ID: 
@@ -39,8 +40,9 @@
       </label>
       <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiename" placeholder="Cookie Name"></div>
     </div>
-    <h2 class="spectrum-Heading spectrum-Heading--sizeS">Consent Service</h2>
+    <h2 class="spectrum-Heading spectrum-Heading--sizeS">Visitor Service</h2>
       <hr class="spectrum-Divider spectrum-Divider--sizeM">
+      <p>Choose based on your implementation which Visitor Service is used.</p>
     <div id="service_div" style="margin-bottom:10px">
       <label>
         ECID Service
@@ -51,8 +53,21 @@
         <input type="checkbox" class="spectrum-Checkbox-input" id="web_sdk">
       </label>
     </div>
+    <h2 class="spectrum-Heading spectrum-Heading--sizeS">CSS Consent Service</h2>
+      <hr class="spectrum-Divider spectrum-Divider--sizeM">
+      <p>Choose if the consent cookie is set via JavaScript (Clientside) or via HTTP (Serverside).</p>
+      <div id="css_service_div" style="margin-bottom:10px">
+        <label>
+          Client Side
+          <input type="checkbox" class="spectrum-Checkbox-input" id="client_side">
+        </label>
+        <label>
+          Server Side
+          <input type="checkbox" class="spectrum-Checkbox-input" id="server_side">
+        </label>
+      </div>
     </div>
-
+  
     <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
     <script>
 
@@ -60,6 +75,9 @@
       var cookiebotID = document.querySelector("#cookiebot_ID");
       var ecidService = document.querySelector("#ecid_service");
       var websdk = document.querySelector("#web_sdk");
+      var clientside = document.querySelector("#client_side");
+      var serverside = document.querySelector("#server_side");
+      
 
       window.extensionBridge.register({
         init: function(info) {
@@ -69,6 +87,8 @@
             cookiebot_ID.value = info.settings.cookiebotID;
             ecid_service.checked = info.settings.ecidService;
             web_sdk.checked = info.settings.websdk;
+            client_side.checked = info.settings.clientside;
+            server_side.checked = info.settings.serverside
           }
         },
 
@@ -80,6 +100,8 @@
             cookiebotID : cookiebot_ID.value,
             ecidService: ecid_service.checked,
             websdk: web_sdk.checked,
+            clientside : client_side.checked,
+            serverside : server_side.checked
           }
         },
 
@@ -98,7 +120,7 @@
             cookie_name.classList.add('invalid');
           }
           
-          if(cookiebotID.value && cookie_name.value && (ecidService.checked || websdk.checked)){
+          if(cookiebotID.value && cookie_name.value && (ecidService.checked || websdk.checked) && (clientside.checked || serverside.checked) ){
             flag = true;
           }
 

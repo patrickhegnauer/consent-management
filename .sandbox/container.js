@@ -7,14 +7,8 @@ module.exports = {
         "cookiebotID": "b5f6c34c-7d5b-4fac-ac35-8ff9fbee649b",
         "ecidService": true,
         "websdk": false,
-        "facebookFlag": false,
-        "bingFlag": false,
-        "floodlightFlag": false,
-        "adwordsFlag": false,
-        "facebookElement": "",
-        "bingElement": "",
-        "floodlightElement": "",
-        "adwordsElement": ""
+        "clientside": false,
+        "serverside": true
       }
     }
   },
@@ -75,9 +69,9 @@ module.exports = {
     "orgId": "ABCDEFGHIJKLMNOPQRSTUVWX@AdobeOrg"
   },
   "buildInfo": {
-    "turbineVersion": "27.2.0",
-    "turbineBuildDate": "2021-11-22T14:48:24.018Z",
-    "buildDate": "2021-11-22T14:48:24.018Z",
+    "turbineVersion": "26.0.2",
+    "turbineBuildDate": "2022-03-29T12:47:14.874Z",
+    "buildDate": "2022-03-29T12:47:14.874Z",
     "environment": "development"
   }
 }

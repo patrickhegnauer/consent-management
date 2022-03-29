@@ -94,9 +94,34 @@ module.exports = function(settings) {
                 ]
               });
             }
-    
+            
+            //old section - clientside
+            if(extensionSettings.clientside){
             _satellite.cookie.set(extensionSettings.cookieName, consentFlag,{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
-          
+            }
+            
+             //new section as of 1.4.0 - serverside
+            if(extensionSettings.serverside){
+               var loc = document.location.host;
+               var envShort;
+            if(loc.indexOf('-dev')>-1){
+              envShort = '-dev';
+            }
+            else if(loc.indexOf('-int')>-1){
+              envShort = '-int';
+            }
+            else if(loc.indexOf('-vpr')>-1){
+              envShort = '-vpr';
+            }
+            //production
+            else{
+              envShort = '';
+            }
+
+            CookieHelper.trackConsent(consentFlag,envShort);
+          }
+
+
       
       //send custom event to trigger rules
       var event = new CustomEvent('event-action-consent', {
@@ -114,8 +139,33 @@ module.exports = function(settings) {
       cookie_consent_state.preferences = 'false';
       cookie_consent_state.statistics = 'false';
       cookie_consent_state.marketing = 'false';
+
+      //old section - clientside
+      if(extensionSettings.clientside){
       _satellite.cookie.set(extensionSettings.cookieName, 'false',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
-    
+      }
+       //new section as of 1.4.0 - serverside
+       if(extensionSettings.serverside){
+        var loc = document.location.host;
+        var envShort;
+     if(loc.indexOf('-dev')>-1){
+       envShort = '-dev';
+     }
+     if(loc.indexOf('-int')>-1){
+       envShort = '-int';
+     }
+     if(loc.indexOf('-vpr')>-1){
+       envShort = '-vpr';
+     }
+     //production
+     else{
+       envShort = '';
+     }
+
+     CookieHelper.trackConsent('min',envShort);
+   }
+
+
       //ecid service
       if(extensionSettings.ecidService){
       adobe.optIn.deny(["aa","ecid","target"],true)

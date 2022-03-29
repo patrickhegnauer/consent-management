@@ -39,6 +39,25 @@ CookieHelper.setCookie = function (cname, cvalue, exdays) {
 };
 
 
+CookieHelper.trackConsent = function(endpoint,environment){
+ 
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", 'https://consent'+ environment +'.css.ch/' + endpoint, true);           //endpoint => true/min/stats/marketing       //environment => -dev/-int/-vpr
+   
+  //Send the proper header information along with the request
+  //xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.withCredentials = true;
+  xhr.onreadystatechange = function() { // Call a function when the state changes.
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+          var response = xhr;
+           //console.log(response.statusText)
+      }
+  }
+  //send consent data
+  xhr.send();
+  }
+
+
     
 } catch (error) {
     

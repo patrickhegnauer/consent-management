@@ -1,9 +1,9 @@
 {
   "displayName": "CSS Consent Management",
-  "iconPath": "src/resources/icons/css_logo.svg",
+  "iconPath": "src/resources/icons/CSS_cyan_rgb.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "1.3.2",
+  "version": "1.4.2",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
