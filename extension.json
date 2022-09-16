@@ -3,7 +3,7 @@
   "iconPath": "src/resources/icons/CSS_cyan_rgb.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "1.4.2",
+  "version": "2.0.1",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
@@ -58,6 +58,16 @@
         "properties": {}
       },
       "libPath": "src/lib/actions/showCookieSettings.js"
+    },
+    {
+      "displayName": "Re - Init Switzerland",
+      "name": "re-init-switzerland",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/reInitSwitzerland.js"
     }
   ],
   "conditions": [
@@ -81,6 +91,16 @@
       },
       "libPath": "src/lib/conditions/checkConsent.js",
       "viewPath": "condition/checkConsent.html"
+    },
+    {
+      "displayName": "Check Serverside Cookie",
+      "name": "check-serverside-cookie",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/conditions/checkServersideCookie.js"
     }
   ]
 }

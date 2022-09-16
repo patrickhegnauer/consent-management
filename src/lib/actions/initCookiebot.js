@@ -6,33 +6,26 @@ var document = require('@adobe/reactor-document');
 module.exports = function(settings) {
   
   try {
+
     var extensionSettings = turbine.getExtensionSettings();
 
-    var CookiebotScriptContainer = document.getElementsByTagName('script')[0];
-    var CookiebotScript = document.createElement("script");
-    CookiebotScript.type = "text/javascript";
-    CookiebotScript.async = true;
-    CookiebotScript.id = "Cookiebot";
-    CookiebotScript.src = "https://consent.cookiebot.com/uc.js?cbid="+ extensionSettings.cookiebotID;
-     
-    // Dynamic language via URL, not browser agent  
-    var currentUserPagePathname = settings.language;
-    var currentUserPageCulture = "de";
-    
-    if (currentUserPagePathname === "fr") {
-      currentUserPageCulture = "fr";
-    }
-    if (currentUserPagePathname === "it") {
-      currentUserPageCulture = "it";
-    }
-    if (currentUserPagePathname === "en") {
-      currentUserPageCulture = "en";
-    }
-    
-    
-    CookiebotScript.setAttribute("data-culture", currentUserPageCulture);
-    CookiebotScriptContainer.parentNode.insertBefore(CookiebotScript, CookiebotScriptContainer);
-    
+    var loc = document.location.host;
+    var envShort;
+      if(loc.indexOf('-dev')>-1){
+        envShort = '-dev';
+      }
+      else if(loc.indexOf('-int')>-1){
+        envShort = '-int';
+      }
+      else if(loc.indexOf('-vpr')>-1){
+        envShort = '-vpr';
+      }
+      //production
+      else{
+        envShort = '';
+      }
+
+    CookieHelper.init(extensionSettings.cookiebotID,extensionSettings.language);  
         
       //set data elements true if cookie is true
       if(_satellite.cookie.get(extensionSettings.cookieName) === 'true'){
@@ -54,8 +47,13 @@ module.exports = function(settings) {
    
      CookiebotCallback_OnAccept = function() {
 
+      if(_satellite.cookie.get(extensionSettings.cookieName) === 'true'){
+
+      }
+      else{
+
       var consent_array = [];
-      var marketing_flag = "pending";
+      
            
        var p = Cookiebot.consent.preferences,
             s = Cookiebot.consent.statistics,
@@ -102,26 +100,8 @@ module.exports = function(settings) {
             
              //new section as of 1.4.0 - serverside
             if(extensionSettings.serverside){
-               var loc = document.location.host;
-               var envShort;
-            if(loc.indexOf('-dev')>-1){
-              envShort = '-dev';
-            }
-            else if(loc.indexOf('-int')>-1){
-              envShort = '-int';
-            }
-            else if(loc.indexOf('-vpr')>-1){
-              envShort = '-vpr';
-            }
-            //production
-            else{
-              envShort = '';
-            }
-
-            CookieHelper.trackConsent(consentFlag,envShort);
+                CookieHelper.trackConsent(consentFlag,envShort);
           }
-
-
       
       //send custom event to trigger rules
       var event = new CustomEvent('event-action-consent', {
@@ -133,9 +113,10 @@ module.exports = function(settings) {
           });
           document.body.dispatchEvent(event);
             }
-    
+          }
+              
     CookiebotCallback_OnDecline = function()     {
-     
+    
       cookie_consent_state.preferences = 'false';
       cookie_consent_state.statistics = 'false';
       cookie_consent_state.marketing = 'false';
@@ -146,25 +127,8 @@ module.exports = function(settings) {
       }
        //new section as of 1.4.0 - serverside
        if(extensionSettings.serverside){
-        var loc = document.location.host;
-        var envShort;
-     if(loc.indexOf('-dev')>-1){
-       envShort = '-dev';
-     }
-     if(loc.indexOf('-int')>-1){
-       envShort = '-int';
-     }
-     if(loc.indexOf('-vpr')>-1){
-       envShort = '-vpr';
-     }
-     //production
-     else{
-       envShort = '';
-     }
-
      CookieHelper.trackConsent('min',envShort);
    }
-
 
       //ecid service
       if(extensionSettings.ecidService){
@@ -185,6 +149,13 @@ module.exports = function(settings) {
       }
     
     }
+    //set consent in switzerland without click
+    CookiebotCallback_OnDialogDisplay = function(){
+      if(Cookiebot.userCountry === 'CH'){
+        CookieHelper.accept();
+      }
+    }
+    
 
   } catch (error) {
     

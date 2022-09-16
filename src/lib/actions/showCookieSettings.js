@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function(settings) {
+
+  /*
   try {
     window.addEventListener('CookiebotOnDialogDisplay', function(){
       document.getElementById('CybotCookiebotDialogBodyLevelButtonCustomize').click();
@@ -8,6 +10,6 @@ module.exports = function(settings) {
    Cookiebot.show(true)
   } catch (error) {
     
-  }
+  }*/
   
 };

@@ -34,13 +34,43 @@
       </label>
       <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiebot_ID" placeholder="Cookiebot ID"></div>
     </div>
-    <div id="cookiename_div">
+    <div id="cookiename_div_client">
       <label> <br>
-        Consent Cookie Name: 
+        Consent Cookie Name (Clientside): 
       </label>
-      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiename" placeholder="Cookie Name"></div>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiename_client" placeholder="Cookie Name"></div>
     </div>
-    <h2 class="spectrum-Heading spectrum-Heading--sizeS">Visitor Service</h2>
+    <div id="cookiename_div_server" style="margin-bottom:10px">
+      <label> <br>
+        Consent Cookie Name (Serverside): 
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiename_server" placeholder="Cookie Name"></div>
+    </div>
+    <h2 class="spectrum-Heading spectrum-Heading--sizeS">Language (Required)</h2>
+    <hr class="spectrum-Divider spectrum-Divider--sizeM">
+    <p>Choose a data element which returns the current language (de/fr/it/en). This is used to display the banner in the corresponding language.</p>
+    <div id="language_div" style="margin-bottom:10px">
+      <label> <br>
+        Language Element: 
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="language_element" placeholder="Name of Data Element"></div>
+      <button style="margin:5px" id="language_button" class="spectrum-ActionButton spectrum-ActionButton--sizeM">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
+          <defs>
+            <style>
+              .a {
+                fill: #6E6E6E;
+              }
+            </style>
+          </defs>
+          <title>S Data 18 N</title>
+          <rect id="Canvas" fill="#ff13dc" opacity="0" width="18" height="18" /><ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
+          <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
+          <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
+        </svg>
+      </button>
+    </div>
+    <h2 class="spectrum-Heading spectrum-Heading--sizeS">Visitor Service (Required)</h2>
       <hr class="spectrum-Divider spectrum-Divider--sizeM">
       <p>Choose based on your implementation which Visitor Service is used.</p>
     <div id="service_div" style="margin-bottom:10px">
@@ -53,17 +83,26 @@
         <input type="checkbox" class="spectrum-Checkbox-input" id="web_sdk">
       </label>
     </div>
-    <h2 class="spectrum-Heading spectrum-Heading--sizeS">CSS Consent Service</h2>
+    <h2 class="spectrum-Heading spectrum-Heading--sizeS">CSS Consent Service (Required)</h2>
       <hr class="spectrum-Divider spectrum-Divider--sizeM">
-      <p>Choose if the consent cookie is set via JavaScript (Clientside) or via HTTP (Serverside).</p>
+      <p>Choose if the consent cookie is set via JavaScript (Clientside) or via HTTP (Serverside) or both.</p>
       <div id="css_service_div" style="margin-bottom:10px">
         <label>
-          Client Side
+          Clientside
           <input type="checkbox" class="spectrum-Checkbox-input" id="client_side">
         </label>
         <label>
-          Server Side
+          Serverside
           <input type="checkbox" class="spectrum-Checkbox-input" id="server_side">
+        </label>
+      </div>
+      <h2 class="spectrum-Heading spectrum-Heading--sizeS">CSS Consent Location (Optional)</h2>
+      <hr class="spectrum-Divider spectrum-Divider--sizeM">
+      <p>Choose if consent banner should be displayed in following countries. Default as per 01.09.2023.</p>
+      <div id="css_service_div" style="margin-bottom:10px">
+        <label>
+          Switzerland
+          <input type="checkbox" class="spectrum-Checkbox-input" id="switzerland">
         </label>
       </div>
     </div>
@@ -71,37 +110,52 @@
     <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
     <script>
 
-      var cookie_name = document.querySelector("#cookiename");
+    var language = document.querySelector('#language_element');  
+
+    document.querySelector("#language_button").addEventListener("click", function() {
+    window.extensionBridge.openDataElementSelector().then(function(dataElement) { 
+    language.value = dataElement
+      });
+    });
+
+      var cookie_name_client = document.querySelector("#cookiename_client");
+      var cookie_name_server = document.querySelector("#cookiename_server");
       var cookiebotID = document.querySelector("#cookiebot_ID");
       var ecidService = document.querySelector("#ecid_service");
       var websdk = document.querySelector("#web_sdk");
       var clientside = document.querySelector("#client_side");
       var serverside = document.querySelector("#server_side");
+      var swiss = document.querySelector('#switzerland');
       
 
       window.extensionBridge.register({
         init: function(info) {
           if (info.settings) {
             // TODO Populate form values from persisted settings.
-            cookiename.value = info.settings.cookieName;
+            language_element.value = info.settings.language;
+            cookiename_client.value = info.settings.cookieName;
+            cookiename_server.value = info.settings.cookieNameServer;
             cookiebot_ID.value = info.settings.cookiebotID;
             ecid_service.checked = info.settings.ecidService;
             web_sdk.checked = info.settings.websdk;
             client_side.checked = info.settings.clientside;
-            server_side.checked = info.settings.serverside
+            server_side.checked = info.settings.serverside;
+            switzerland.checked = info.settings.swiss;
           }
         },
 
         getSettings: function() {
           // TODO Return settings object from form values.
           return{
-
-            cookieName : cookiename.value,
+            language :  language_element.value,
+            cookieName : cookiename_client.value,
+            cookieNameServer : cookiename_server.value,
             cookiebotID : cookiebot_ID.value,
             ecidService: ecid_service.checked,
             websdk: web_sdk.checked,
             clientside : client_side.checked,
-            serverside : server_side.checked
+            serverside : server_side.checked,
+            swiss : switzerland.checked
           }
         },
 
@@ -111,16 +165,24 @@
           var flag = false;
 
           cookiebotID.invalid = !cookiebotID.value;
-          cookie_name.invalid = !cookie_name.value;
+          cookiename_client.invalid = !cookiename_client.value;
+          language_element.invalid = !language_element.value;
+          cookiename_server.invalid = !cookiename_server.value;
 
           if(cookiebotID.invalid){
             cookiebotID.classList.add('invalid');
           }
-          if(cookie_name.invalid){
-            cookie_name.classList.add('invalid');
+          if(cookiename_client.invalid){
+            cookiename_client.classList.add('invalid');
+          }
+          if(cookiename_server.invalid){
+            cookiename_server.classList.add('invalid');
+          }
+          if(language_element.invalid){
+            language_element.classList.add('invalid');
           }
           
-          if(cookiebotID.value && cookie_name.value && (ecidService.checked || websdk.checked) && (clientside.checked || serverside.checked) ){
+          if(cookiebotID.value && cookiename_client.value && cookiename_server.value && (ecidService.checked || websdk.checked) && (clientside.checked || serverside.checked) && language.value ){
             flag = true;
           }
 

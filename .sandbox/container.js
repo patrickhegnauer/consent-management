@@ -4,11 +4,11 @@ module.exports = {
       "displayName": "CSS Consent Management",
       "settings": {
         "cookieName": "sat_track",
-        "cookiebotID": "b5f6c34c-7d5b-4fac-ac35-8ff9fbee649b",
+        "cookiebotID": "4edf3480-f8a7-4008-bcc2-e01f9b9ccd2e",
         "ecidService": true,
         "websdk": false,
-        "clientside": false,
-        "serverside": true
+        "clientside": true,
+        "serverside": false
       }
     }
   },
@@ -68,10 +68,14 @@ module.exports = {
   "company": {
     "orgId": "ABCDEFGHIJKLMNOPQRSTUVWX@AdobeOrg"
   },
+  "environment": {
+    "id": "EN00000000000000000000000000000000",
+    "stage": "development"
+  },
   "buildInfo": {
-    "turbineVersion": "26.0.2",
-    "turbineBuildDate": "2022-03-29T12:47:14.874Z",
-    "buildDate": "2022-03-29T12:47:14.874Z",
+    "turbineVersion": "27.2.1",
+    "turbineBuildDate": "2022-05-04T06:26:00.019Z",
+    "buildDate": "2022-05-04T06:26:00.019Z",
     "environment": "development"
   }
 }

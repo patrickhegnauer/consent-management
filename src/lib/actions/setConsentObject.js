@@ -6,7 +6,12 @@ module.exports = function(settings) {
 
   if(extensionSettings.ecidService){
 
-    var cookie = _satellite.cookie.get(extensionSettings.cookieName);
+    if(_satellite.cookie.get(extensionSettings.cookieNameServer) !== undefined){
+      var cookie = _satellite.cookie.get(extensionSettings.cookieNameServer);
+    }
+    else{
+      var cookie = _satellite.cookie.get(extensionSettings.cookieName);
+    }
 
     if(cookie === 'true' || cookie === 'stats'){
     var consent_array = []

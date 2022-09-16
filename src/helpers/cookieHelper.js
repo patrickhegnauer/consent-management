@@ -6,12 +6,40 @@ window.CookieHelper = window.CookieHelper || {};
 
 try {
 
+  var loc = document.location.host;
+    var envShort;
+      if(loc.indexOf('-dev')>-1){
+        envShort = '-dev';
+      }
+      else if(loc.indexOf('-int')>-1){
+        envShort = '-int';
+      }
+      else if(loc.indexOf('-vpr')>-1){
+        envShort = '-vpr';
+      }
+      //production
+      else{
+        envShort = '';
+      }
+
+  CookieHelper.settings = {
+    cookieNameClient : extensionSettings.cookieName,
+    cookieNameServer : extensionSettings.cookieNameServer,
+    websdk : extensionSettings.websdk,
+    ecid : extensionSettings.ecidService,
+    clientside : extensionSettings.clientside,
+    serverside : extensionSettings.serverside,
+    swiss : extensionSettings.swiss,
+    cookiebotID : extensionSettings.cookiebotID,
+    envShort : envShort
+  }
+
     // console: logs to the console if the dev console exists
     CookieHelper.console = function(text)
   {
    if (typeof window.console !== "undefined")
         {
-        if (typeof window.console.log !== "undefined" &&  _satellite.buildInfo.environment !== 'production')
+        if (typeof window.console.log !== "undefined" &&  _satellite.environment.stage !== 'production')
           {
           window.console.log(text);
           }
@@ -57,7 +85,104 @@ CookieHelper.trackConsent = function(endpoint,environment){
   xhr.send();
   }
 
+  CookieHelper.accept = function(){
 
+    var consent_array = [];
+      _satellite.cookie.set('sat_track', 'true',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+     consent_array.push("aa");
+     consent_array.push("ecid");
+     consent_array.push("target");
+      
+    adobe.optIn.approve(consent_array,true);
+    adobe.optIn.complete();
+
+    var event = new CustomEvent('event-action-consent', {
+      detail: {
+        eventCategory: 'User Interaktion',
+        eventAction: 'Passiv Consent',
+        eventLabel: 'On Accept'
+      }
+      });
+      document.body.dispatchEvent(event);
+
+  }
+
+  CookieHelper.decline = function(){
+    //old section - clientside
+    if(extensionSettings.clientside){
+      _satellite.cookie.set(extensionSettings.cookieName, 'false',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      }
+       //new section as of 1.4.0 - serverside
+      if(extensionSettings.serverside){
+          CookieHelper.trackConsent('min', CookieHelper.settings.envShort);
+    }
+    adobe.optIn.deny(["aa","ecid","target"],true)
+    adobe.optIn.complete();
+  }
+
+  CookieHelper.selection = function(){
+
+    var s = Cookiebot.consent.statistics;
+    var m = Cookiebot.consent.marketing;
+
+    var consent_array = [];
+    var consentFlag;
+        if(m && s){
+            consentFlag = "true";
+            consent_array.push("aa");
+            consent_array.push("ecid");
+            consent_array.push("target");
+       }
+        if(m && !s){
+            consentFlag = "marketing";
+      }
+        if(!m && s){
+            consentFlag = "stats";
+            consent_array.push("aa");
+            consent_array.push("ecid");
+            consent_array.push("target");
+      }
+            //clientside
+            if(extensionSettings.clientside){
+            _satellite.cookie.set(extensionSettings.cookieName, consentFlag,{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+            }
+            //serverside
+            if(extensionSettings.serverside){
+                CookieHelper.trackConsent(consentFlag,CookieHelper.settings.envShort);
+          }  
+    adobe.optIn.approve(consent_array,true);
+    adobe.optIn.complete();
+    
+  }
+
+CookieHelper.init = function(src,lang){
+  var CookiebotScriptContainer = document.getElementsByTagName('script')[0];
+  var CookiebotScript = document.createElement("script");
+  CookiebotScript.type = "text/javascript";
+  CookiebotScript.async = true;
+  CookiebotScript.id = "Cookiebot";
+  CookiebotScript.src = "https://consent.cookiebot.com/uc.js?cbid="+ src;
+   
+  // Dynamic language via URL, not browser agent  
+  var currentUserPagePathname = lang;
+  var currentUserPageCulture = "de";
+  
+  if (currentUserPagePathname === "fr") {
+    currentUserPageCulture = "fr";
+  }
+  if (currentUserPagePathname === "it") {
+    currentUserPageCulture = "it";
+  }
+  if (currentUserPagePathname === "en") {
+    currentUserPageCulture = "en";
+  }
+  if(CookieHelper.settings.swiss){
+    CookiebotScript.setAttribute("data-georegions", "{'region':'CH','cbid':'47975769-adfa-4ec3-986a-3603dff279a8'}" );
+  }
+  
+  CookiebotScript.setAttribute("data-culture", currentUserPageCulture);
+  CookiebotScriptContainer.parentNode.insertBefore(CookiebotScript, CookiebotScriptContainer);
+}
     
 } catch (error) {
     

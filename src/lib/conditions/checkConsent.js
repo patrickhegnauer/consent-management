@@ -5,8 +5,15 @@ var cookieHelper = require('../../helpers/cookieHelper');
 module.exports = function(settings) {
   
   var extensionSettings = turbine.getExtensionSettings();
-  var cookie = _satellite.cookie.get(extensionSettings.cookieName);
 
+  if(_satellite.cookie.get(extensionSettings.cookieNameServer) !== undefined){
+    var cookie = _satellite.cookie.get(extensionSettings.cookieNameServer);
+  }
+  else{
+    var cookie = _satellite.cookie.get(extensionSettings.cookieName);
+  }
+    
+  
   if(cookie === 'true'){
     return true;
   }
