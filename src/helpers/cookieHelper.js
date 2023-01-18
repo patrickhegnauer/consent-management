@@ -93,8 +93,11 @@ CookieHelper.trackConsent = function(endpoint,environment){
      consent_array.push("ecid");
      consent_array.push("target");
       
-    adobe.optIn.approve(consent_array,true);
-    adobe.optIn.complete();
+   //ecid service
+if(extensionSettings.ecidService){
+  adobe.optIn.approve(consent_array,true);
+  adobe.optIn.complete();
+}
 
     var event = new CustomEvent('event-action-consent', {
       detail: {
@@ -116,8 +119,31 @@ CookieHelper.trackConsent = function(endpoint,environment){
       if(extensionSettings.serverside){
           CookieHelper.trackConsent('min', CookieHelper.settings.envShort);
     }
-    adobe.optIn.deny(["aa","ecid","target"],true)
-    adobe.optIn.complete();
+
+    //ecid service
+    if(extensionSettings.ecidService){
+      adobe.optIn.deny(["aa","ecid","target"],true)
+      adobe.optIn.complete();
+      }
+      //web sdk
+      else if(extensionSettings.websdk){
+
+        alloy("setConsent", {    
+          consent: [{      
+            standard: "Adobe",      
+            version: "1.0",      
+            value: {        general: "out"      }    }
+          ]
+        });
+
+      }
+
+      if(localStorage && CookieConsent){
+        localStorage.setItem('consentID', CookieConsent.consentID)
+        localStorage.setItem('consentUTC', CookieConsent.consentUTC)
+        localStorage.setItem('consentValue', JSON.stringify(CookieConsent.consent))
+      }
+
   }
 
   CookieHelper.selection = function(){
@@ -150,8 +176,40 @@ CookieHelper.trackConsent = function(endpoint,environment){
             if(extensionSettings.serverside){
                 CookieHelper.trackConsent(consentFlag,CookieHelper.settings.envShort);
           }  
+
+//ecid service
+if(extensionSettings.ecidService){
     adobe.optIn.approve(consent_array,true);
     adobe.optIn.complete();
+  }
+
+  //web sdk
+  else if(extensionSettings.websdk){
+    if(consentFlag == 'stats' || consentFlag == "true"){
+    alloy("setConsent", {    
+      consent: [{      
+        standard: "Adobe",      
+        version: "1.0",      
+        value: {        general: "in"      }    }
+      ]
+    });
+  }
+  else{
+    alloy("setConsent", {    
+      consent: [{      
+        standard: "Adobe",      
+        version: "1.0",      
+        value: {        general: "out"      }    }
+      ]
+    });
+  }
+  }
+
+  if(localStorage && CookieConsent){
+    localStorage.setItem('consentID', CookieConsent.consentID)
+    localStorage.setItem('consentUTC', CookieConsent.consentUTC)
+    localStorage.setItem('consentValue', JSON.stringify(CookieConsent.consent))
+  }
     
   }
 

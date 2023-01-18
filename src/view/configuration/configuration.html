@@ -105,6 +105,15 @@
           <input type="checkbox" class="spectrum-Checkbox-input" id="switzerland">
         </label>
       </div>
+      <h2 class="spectrum-Heading spectrum-Heading--sizeS">Cross Device / Platform (Optional)</h2>
+      <hr class="spectrum-Divider spectrum-Divider--sizeM">
+      <p>Choose if consent should be persisted via QueryString Parameter (from Apps or Cross Device Journeys).</p>
+      <div id="css_service_div" style="margin-bottom:10px">
+        <label>
+          Enable
+          <input type="checkbox" class="spectrum-Checkbox-input" id="xdevice">
+        </label>
+      </div>
     </div>
   
     <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
@@ -126,6 +135,7 @@
       var clientside = document.querySelector("#client_side");
       var serverside = document.querySelector("#server_side");
       var swiss = document.querySelector('#switzerland');
+      var cross = document.querySelector('#xdevice');
       
 
       window.extensionBridge.register({
@@ -141,6 +151,7 @@
             client_side.checked = info.settings.clientside;
             server_side.checked = info.settings.serverside;
             switzerland.checked = info.settings.swiss;
+            xdevice.checked = info.settings.cross;
           }
         },
 
@@ -155,7 +166,8 @@
             websdk: web_sdk.checked,
             clientside : client_side.checked,
             serverside : server_side.checked,
-            swiss : switzerland.checked
+            swiss : switzerland.checked,
+            cross : xdevice.checked
           }
         },
 

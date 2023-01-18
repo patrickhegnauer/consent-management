@@ -1,8 +1,11 @@
 # Release Notes
 
+## Wedge v2.0.3
+- Set Consent ID on Callback Accept
+## Wedge v2.0.2
+- Bug fixing "adobe is not defined". In case ECID is not installed, the extension should check which ID Service is activated.
 ## Wedge v2.0.1
 - Bug fixing "init component"
-
 ## Wedge v2.0.0
 - Added support for add consent in Switzerland
 - Added multiple actions and configurations for switzerland

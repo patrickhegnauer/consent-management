@@ -48,7 +48,11 @@ module.exports = function(settings) {
      CookiebotCallback_OnAccept = function() {
 
       if(_satellite.cookie.get(extensionSettings.cookieName) === 'true'){
-
+        if(localStorage && CookieConsent){
+          localStorage.setItem('consentID', CookieConsent.consentID)
+          localStorage.setItem('consentUTC', CookieConsent.consentUTC)
+          localStorage.setItem('consentValue', JSON.stringify(CookieConsent.consent))
+        }
       }
       else{
 
@@ -112,6 +116,13 @@ module.exports = function(settings) {
           }
           });
           document.body.dispatchEvent(event);
+
+          if(localStorage && CookieConsent){
+            localStorage.setItem('consentID', CookieConsent.consentID)
+            localStorage.setItem('consentUTC', CookieConsent.consentUTC)
+            localStorage.setItem('consentValue', JSON.stringify(CookieConsent.consent))
+          }
+
             }
           }
               
@@ -146,6 +157,12 @@ module.exports = function(settings) {
           ]
         });
 
+      }
+
+      if(localStorage && CookieConsent){
+        localStorage.setItem('consentID', CookieConsent.consentID)
+        localStorage.setItem('consentUTC', CookieConsent.consentUTC)
+        localStorage.setItem('consentValue', JSON.stringify(CookieConsent.consent))
       }
     
     }
