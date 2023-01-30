@@ -83,6 +83,7 @@ CookieHelper.trackConsent = function(endpoint,environment){
   }
   //send consent data
   xhr.send();
+  
   }
 
   CookieHelper.accept = function(){
@@ -235,7 +236,13 @@ CookieHelper.init = function(src,lang){
     currentUserPageCulture = "en";
   }
   if(CookieHelper.settings.swiss){
-    CookiebotScript.setAttribute("data-georegions", "{'region':'CH','cbid':'47975769-adfa-4ec3-986a-3603dff279a8'}" );
+    if(extensionSettings.cross && document.location.search.indexOf('cssconsent=') >-1){
+      //enabled and contains query => not showing banner
+    }
+    else{
+      //either not activated or not containing query => show banner
+      CookiebotScript.setAttribute("data-georegions", "{'region':'CH','cbid':'47975769-adfa-4ec3-986a-3603dff279a8'}" );
+    }
   }
   
   CookiebotScript.setAttribute("data-culture", currentUserPageCulture);
