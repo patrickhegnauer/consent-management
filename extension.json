@@ -3,7 +3,7 @@
   "iconPath": "src/resources/icons/CSS_cyan_rgb.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "2.0.4",
+  "version": "2.1.4",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
@@ -50,16 +50,6 @@
       "libPath": "src/lib/actions/showCookiebot.js"
     },
     {
-      "displayName": "Show Cookie Settings",
-      "name": "show-cookie-settings",
-      "schema": {
-        "$schema": "http://json-schema.org/draft-04/schema#",
-        "type": "object",
-        "properties": {}
-      },
-      "libPath": "src/lib/actions/showCookieSettings.js"
-    },
-    {
       "displayName": "Re - Init Switzerland",
       "name": "re-init-switzerland",
       "schema": {
@@ -68,6 +58,36 @@
         "properties": {}
       },
       "libPath": "src/lib/actions/reInitSwitzerland.js"
+    },
+    {
+      "displayName": "Set consent based on Selection",
+      "name": "set-consent-based-on-selection",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/setConsentBasedOnSelection.js"
+    },
+    {
+      "displayName": "Set Consent - Mobile",
+      "name": "set-consent-mobile",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/setConsentMobile.js"
+    },
+    {
+      "displayName": "Send Post Message",
+      "name": "send-post-message",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/sendPostMessage.js"
     }
   ],
   "conditions": [
@@ -101,6 +121,26 @@
         "properties": {}
       },
       "libPath": "src/lib/conditions/checkServersideCookie.js"
+    },
+    {
+      "displayName": "Check Consent - Mobile",
+      "name": "check-consent-mobile",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/conditions/checkConsentMobile.js"
+    },
+    {
+      "displayName": "Check Consent Web/App",
+      "name": "check-consent-webapp",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/conditions/checkConsentWebapp.js"
     }
   ]
 }

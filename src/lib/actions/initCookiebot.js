@@ -53,6 +53,10 @@ module.exports = function(settings) {
           localStorage.setItem('consentUTC', CookieConsent.consentUTC)
           localStorage.setItem('consentValue', JSON.stringify(CookieConsent.consent))
         }
+        /*set serverside cookie in CH - after OK Click
+        if(extensionSettings.serverside){
+          CookieHelper.trackConsent('true',envShort);
+    }*/
       }
       else{
 
