@@ -7,7 +7,10 @@ module.exports = function(settings) {
   var extensionSettings = turbine.getExtensionSettings();
 
   if(_satellite.cookie.get(extensionSettings.cookieNameServer) !== undefined){
-    var cookie = _satellite.cookie.get(extensionSettings.cookieNameServer);
+    var cookie = JSON.parse(_satellite.cookie.get(extensionSettings.cookieNameServer)).value;
+    if(cookie === undefined){
+      cookie = _satellite.cookie.get(extensionSettings.cookieNameServer);
+    }
   }
   else{
     var cookie = _satellite.cookie.get(extensionSettings.cookieName);

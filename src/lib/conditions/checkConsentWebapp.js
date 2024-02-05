@@ -8,7 +8,12 @@ module.exports = function(settings,event) {
     document.body.addEventListener('iab-message', (event) => {
     // message from portal received
     // the detail contains the consent which can be 'undefined', true or false
+    try{
       const consent = JSON.parse(event.detail);
+    }
+    catch(e){
+      const consent = event.detail;
+    }
       resolve(consent.consent === 'undefined');
      });
   
@@ -18,7 +23,7 @@ module.exports = function(settings,event) {
     if(!api){
         //sync cookies
   if(_satellite.cookie.get(extensionSettings.cookieNameServer) !== undefined){
-    _satellite.cookie.set(extensionSettings.cookieName, _satellite.cookie.get(extensionSettings.cookieNameServer),{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+    _satellite.cookie.set(extensionSettings.cookieName, _satellite.cookie.get(extensionSettings.cookieNameServer) .indexOf('value') >-1 ? JSON.parse(_satellite.cookie.get(extensionSettings.cookieNameServer)).value : _satellite.cookie.get(extensionSettings.cookieNameServer),{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
   } 
   
   if(typeof _satellite.cookie.get(extensionSettings.cookieName) === 'undefined' && typeof(_satellite.cookie.get(extensionSettings.cookieNameServer) === 'undefined')){

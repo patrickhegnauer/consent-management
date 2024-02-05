@@ -5,7 +5,12 @@ module.exports = function(settings,event) {
     document.body.addEventListener('iab-message', (event) => {
     // message from portal received
     // the detail contains the consent which can be 'undefined', true or false
-      const consent = JSON.parse(event.detail);
+      try{
+        const consent = JSON.parse(event.detail);
+      }
+      catch(e){
+        const consent = event.detail;
+      }
       resolve(consent.consent === 'undefined');
      });
   

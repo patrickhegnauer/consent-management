@@ -55,7 +55,7 @@ module.exports = function(settings) {
         }
         /*set serverside cookie in CH - after OK Click
         if(extensionSettings.serverside){
-          CookieHelper.trackConsent('true',envShort);
+          CookieHelper.trackConsent('consent',envShort, 'true);
     }*/
       }
       else{
@@ -103,12 +103,12 @@ module.exports = function(settings) {
             
             //old section - clientside
             if(extensionSettings.clientside){
-            _satellite.cookie.set(extensionSettings.cookieName, consentFlag,{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+            _satellite.cookie.set(extensionSettings.cookieName, consentFlag,{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
             }
             
              //new section as of 1.4.0 - serverside
             if(extensionSettings.serverside){
-                CookieHelper.trackConsent(consentFlag,envShort);
+                CookieHelper.trackConsent('consent',envShort,consentFlag);
           }
       
       //send custom event to trigger rules
@@ -138,11 +138,11 @@ module.exports = function(settings) {
 
       //old section - clientside
       if(extensionSettings.clientside){
-      _satellite.cookie.set(extensionSettings.cookieName, 'false',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      _satellite.cookie.set(extensionSettings.cookieName, 'false',{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
       }
        //new section as of 1.4.0 - serverside
        if(extensionSettings.serverside){
-     CookieHelper.trackConsent('min',envShort);
+     CookieHelper.trackConsent('consent',envShort,'min');
    }
 
       //ecid service

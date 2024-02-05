@@ -10,7 +10,7 @@ module.exports = function(settings,event) {
     
     //case1 accept
     if(button == 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll'){
-      CookieHelper.trackConsent('true',CookieHelper.settings.envShort);
+      CookieHelper.trackConsent('consent',CookieHelper.settings.envShort,'true');
       api?.postMessage('{"type": "setConsent", "consent": "true"}');
     }
     

@@ -49,7 +49,8 @@ try {
 // getCookie
 CookieHelper.getCookie= function(cname) {
   var name = cname + "=";
-  var ca = document.cookie.split(';');
+  var decodedCookie = decodeURIComponent(document.cookie)
+  var ca = decodedCookie.split(';');
   for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
       while (c.charAt(0) == ' ') c = c.substring(1);
@@ -61,12 +62,28 @@ CookieHelper.getCookie= function(cname) {
 //setCookie
 CookieHelper.setCookie = function (cname, cvalue, exdays) {
   var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  d.setTime(d.getTime() + (exdays*24*60*60*1000)); extensionSettings.domainTopLevel
   var expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";domain=.css.ch;path=/;SameSite=Lax;secure=true";
+  document.cookie = cname + "=" + encodeURIComponent(cvalue) + ";" + expires + ";domain="+extensionSettings.domainTopLevel+";path=/;SameSite=Lax;secure=true";
 };
 
+CookieHelper.getChash = function(chash,environment){
+  var prefix = 'value=';
+  var chashObj = chash;
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://consent'+ environment +'.css.ch/chash' + '?' + prefix + encodeURIComponent(chashObj), true);
+  xhr.withCredentials = true;
+  xhr.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      var response = xhr;
+    }
+  }
+  if(chash !== ''){
+    xhr.send();
+  }
+}
 
+/*POST Function => deprecated as of 2.1.14
 CookieHelper.trackConsent = function(endpoint,environment){
  
   var xhr = new XMLHttpRequest();
@@ -78,18 +95,72 @@ CookieHelper.trackConsent = function(endpoint,environment){
   xhr.onreadystatechange = function() { // Call a function when the state changes.
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
           var response = xhr;
-           //console.log(response.statusText)
       }
+      if(this.readyState === XMLHttpRequest.DONE && this.status === 404){
+        _satellite.cookie.set('consent_css', endpoint,{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
+      }
+  }
+  //set clientside cookie if service is not available
+  xhr.onerror = function(){
+    _satellite.cookie.set('consent_css', endpoint,{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
   }
   //send consent data
   xhr.send();
-  
-  }
+  }*/
+
+  //new GET Function
+  CookieHelper.trackConsent = function(endpoint,environment,value){
+
+    var currentDate = new Date();
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth()+1;
+    day = day > 9 ? day : '0' + day;
+    month = month > 9 ? month : '0' + month
+    var dateString = currentDate.getFullYear() + '-' + month + '-' + day;
+    var consentID = typeof(CookieConsent) !== 'undefined' ? CookieConsent.consentID : localStorage.consentID;
+    var prefix = 'value=';
+    var consentString = typeof(CookieConsent) !== 'undefined' ? CookieConsent.consent : localStorage.consent;
+    var consentObj= {
+        "marketing" : consentString.marketing.toLocaleString(),
+        "statistics" : consentString.statistics.toLocaleString(),
+        "preferences" : consentString.preferences.toLocaleString(),
+        "necessary" : consentString.necessary.toLocaleString(),
+        "consentID" : consentID,
+        "consentUTC" :  dateString,
+        "consentDomain" : document.location.host,
+        "value" : value
+    }
+    var params = JSON.stringify(consentObj) 
+      
+    var xhr = new XMLHttpRequest();
+    //endpoint => true/min/stats/marketing       //environment => -dev/-int/-vpr
+    xhr.open("GET", 'https://consent'+ environment +'.css.ch/' + endpoint + '?' + prefix + encodeURIComponent(params), true);          
+      
+    //Send the proper header information along with the request
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = function() { // Call a function when the state changes.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            var response = xhr;
+             //console.log(response.statusText)
+        }
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 404){
+          _satellite.cookie.set('consent_css', params,{ expires: 365, domain: extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
+        }
+    }
+    xhr.onerror = function(){
+      _satellite.cookie.set('consent_css', params,{ expires: 365, domain: extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
+    }
+    //send consent data
+    xhr.send();
+    }
+
+
+
 
   CookieHelper.accept = function(){
 
     var consent_array = [];
-      _satellite.cookie.set('sat_track', 'true',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      _satellite.cookie.set('sat_track', 'true',{ expires: 365, domain: extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
      consent_array.push("aa");
      consent_array.push("ecid");
      consent_array.push("target");
@@ -114,11 +185,11 @@ if(extensionSettings.ecidService){
   CookieHelper.decline = function(){
     //old section - clientside
     if(extensionSettings.clientside){
-      _satellite.cookie.set(extensionSettings.cookieName, 'false',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      _satellite.cookie.set(extensionSettings.cookieName, 'false',{ expires: 365, domain: extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
       }
        //new section as of 1.4.0 - serverside
       if(extensionSettings.serverside){
-          CookieHelper.trackConsent('min', CookieHelper.settings.envShort);
+          CookieHelper.trackConsent('consent',CookieHelper.settings.envShort,'min')
     }
 
     //ecid service
@@ -171,11 +242,11 @@ if(extensionSettings.ecidService){
       }
             //clientside
             if(extensionSettings.clientside){
-            _satellite.cookie.set(extensionSettings.cookieName, consentFlag,{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+            _satellite.cookie.set(extensionSettings.cookieName, consentFlag,{ expires: 365, domain: extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
             }
             //serverside
             if(extensionSettings.serverside){
-                CookieHelper.trackConsent(consentFlag,CookieHelper.settings.envShort);
+                CookieHelper.trackConsent('consent',CookieHelper.settings.envShort,consentFlag);
           }  
 
 //ecid service

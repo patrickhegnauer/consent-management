@@ -3,7 +3,7 @@
   "iconPath": "src/resources/icons/CSS_cyan_rgb.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "2.1.4",
+  "version": "2.1.16",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
@@ -88,6 +88,56 @@
         "properties": {}
       },
       "libPath": "src/lib/actions/sendPostMessage.js"
+    },
+    {
+      "displayName": "Delete old Cookie",
+      "name": "delete-old-cookie",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/deleteOldCookie.js"
+    },
+    {
+      "displayName": "Set Overlay Div for mobile",
+      "name": "set-overlay-div-for-mobile",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/setOverlayDivForMobile.js"
+    },
+    {
+      "displayName": "OnAccept EventListener",
+      "name": "onaccept-eventlistener",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/onacceptEventlistener.js"
+    },
+    {
+      "displayName": "OnDecline EventListener",
+      "name": "ondecline-eventlistener",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/ondeclineEventlistener.js"
+    },
+    {
+      "displayName": "Set Chash Cookie",
+      "name": "set-chash-cookie",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/setChashCookie.js"
     }
   ],
   "conditions": [

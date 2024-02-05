@@ -1,5 +1,19 @@
 # Release Notes
-
+## Wedge v2.1.16
+- Replaced old Consent Endpoints (true/min/marketing/stats) with a generic one (trackConsent function)
+- De- and encryption of Cookie values
+## Wedge v2.1.9
+- Added Domain for Configuration (for setting Cookies flexible on every domain, not only .css.ch)
+- New Cookie Handling - Setting Cookies through GET not POST to add more Attributes
+## Wedge v2.1.7
+- Added decoding for CookieHelper.getCookie()
+## Wedge v2.1.6
+- Improved Eventlistener for Accept / Decline
+## Wedge v2.1.5
+- Improved CookieHelper.selection()
+## Wedge v2.0.4 - v2.1.4
+- Added new mobile components
+- Bug fixing
 ## Wedge v2.0.3
 - Set Consent ID on Callback Accept
 ## Wedge v2.0.2

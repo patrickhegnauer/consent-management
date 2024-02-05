@@ -46,6 +46,12 @@
       </label>
       <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiename_server" placeholder="Cookie Name"></div>
     </div>
+    <div id="domain_div" style="margin-bottom:10px">
+      <label> <br>
+        Cookie Domain (Top Level): 
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="topLevelDomain" placeholder="e.g .css.ch"></div>
+    </div>
     <h2 class="spectrum-Heading spectrum-Heading--sizeS">Language (Required)</h2>
     <hr class="spectrum-Divider spectrum-Divider--sizeM">
     <p>Choose a data element which returns the current language (de/fr/it/en). This is used to display the banner in the corresponding language.</p>
@@ -129,6 +135,7 @@
 
       var cookie_name_client = document.querySelector("#cookiename_client");
       var cookie_name_server = document.querySelector("#cookiename_server");
+      var domainTopLevel = document.querySelector("#topLevelDomain");
       var cookiebotID = document.querySelector("#cookiebot_ID");
       var ecidService = document.querySelector("#ecid_service");
       var websdk = document.querySelector("#web_sdk");
@@ -142,6 +149,7 @@
         init: function(info) {
           if (info.settings) {
             // TODO Populate form values from persisted settings.
+            topLevelDomain.value = info.settings.domainTopLevel
             language_element.value = info.settings.language;
             cookiename_client.value = info.settings.cookieName;
             cookiename_server.value = info.settings.cookieNameServer;
@@ -158,6 +166,7 @@
         getSettings: function() {
           // TODO Return settings object from form values.
           return{
+            domainTopLevel : topLevelDomain.value,
             language :  language_element.value,
             cookieName : cookiename_client.value,
             cookieNameServer : cookiename_server.value,
@@ -180,6 +189,7 @@
           cookiename_client.invalid = !cookiename_client.value;
           language_element.invalid = !language_element.value;
           cookiename_server.invalid = !cookiename_server.value;
+          topLevelDomain.invalid = !topLevelDomain.value;
 
           if(cookiebotID.invalid){
             cookiebotID.classList.add('invalid');
@@ -190,11 +200,14 @@
           if(cookiename_server.invalid){
             cookiename_server.classList.add('invalid');
           }
+          if(topLevelDomain.invalid){
+            topLevelDomain.classList.add('invalid');
+          }
           if(language_element.invalid){
             language_element.classList.add('invalid');
           }
           
-          if(cookiebotID.value && cookiename_client.value && cookiename_server.value && (ecidService.checked || websdk.checked) && (clientside.checked || serverside.checked) && language.value ){
+          if(cookiebotID.value && cookiename_client.value && cookiename_server.value && topLevelDomain.value && (ecidService.checked || websdk.checked) && (clientside.checked || serverside.checked) && language.value ){
             flag = true;
           }
 

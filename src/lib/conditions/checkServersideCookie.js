@@ -25,23 +25,23 @@ module.exports = function(settings) {
 
     var queryString = document.location.search;
     if(queryString.indexOf('cssconsent=true') >-1){
-      CookieHelper.trackConsent('true',envShort);
-      _satellite.cookie.set(extensionSettings.cookieName, 'true',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      CookieHelper.trackConsent('consent',envShort,'true');
+      _satellite.cookie.set(extensionSettings.cookieName, 'true',{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
       return false
     }
     else if(queryString.indexOf('cssconsent=stats') >-1){
-      CookieHelper.trackConsent('stats',envShort);
-      _satellite.cookie.set(extensionSettings.cookieName, 'stats',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      CookieHelper.trackConsent('consent',envShort,'stats');
+      _satellite.cookie.set(extensionSettings.cookieName, 'stats',{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
       return false
     }
     else if(queryString.indexOf('cssconsent=marketing') >-1){
-      CookieHelper.trackConsent('marketing',envShort);
-      _satellite.cookie.set(extensionSettings.cookieName, 'marketing',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      CookieHelper.trackConsent('consent',envShort,'marketing');
+      _satellite.cookie.set(extensionSettings.cookieName, 'marketing',{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
       return false
     }
     else if(queryString.indexOf('cssconsent=min') >-1){
-      CookieHelper.trackConsent('min',envShort);
-      _satellite.cookie.set(extensionSettings.cookieName, 'min',{ expires: 365, domain:'.css.ch', path:'/', SameSite:'Lax',secure:true });
+      CookieHelper.trackConsent('consent',envShort,'min');
+      _satellite.cookie.set(extensionSettings.cookieName, 'min',{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
       return false
     }
     else{

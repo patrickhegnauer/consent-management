@@ -6,7 +6,7 @@ module.exports = function(settings) {
     
     //case1 accept
     if(button == 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll'){
-      CookieHelper.trackConsent('true',CookieHelper.settings.envShort);
+      CookieHelper.trackConsent('consent',CookieHelper.settings.envShort,'true');
     }
     
     //case2 selection
