@@ -2,6 +2,7 @@
 
 module.exports = function(settings) {
   try{
+    var extensionSettings = turbine.getExtensionSettings();
     window.addEventListener('CookiebotOnDialogDisplay', function(e){
     var cookieBotElement = document.querySelector('#CybotCookiebotDialog');
     if(cookieBotElement) {
@@ -18,15 +19,15 @@ module.exports = function(settings) {
         mutations.forEach(function(mutation) { 
           if (mutation.attributeName === "data-template") { 
             if(mutation.target.dataset.template === 'popup'){ 
-              var lang = digitalData.page.pageInfo.language;
+              var lang = extensionSettings.language;
                         var text;
                 switch(lang){
                   case 'de' :  text = 'Alle bestätigen'; break
                   case 'it' :  text = 'Confermare tutto'; break
                   case 'fr' :  text = 'Confirmer tout'; break
                   case 'en' :  text = 'Confirm all'; break
-                             }
-              document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').innerText = text;
+                  default :    text = 'Alle bestätigen'; break     }
+              //document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').innerText = text;
                         if(marketing && marketing.checked){
                           marketing.click()
                         }

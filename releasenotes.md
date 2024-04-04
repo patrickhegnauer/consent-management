@@ -1,4 +1,6 @@
 # Release Notes
+## Wedge v2.2.0
+- Data Region as a configuration field
 ## Wedge v2.1.16
 - Replaced old Consent Endpoints (true/min/marketing/stats) with a generic one (trackConsent function)
 - De- and encryption of Cookie values

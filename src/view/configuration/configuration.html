@@ -34,6 +34,12 @@
       </label>
       <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="cookiebot_ID" placeholder="Cookiebot ID"></div>
     </div>
+    <div id="data_region_div">
+      <label> <br>
+        Data Geo Script ID: 
+      </label>
+      <div class="spectrum-Textfield"><input type="text" class="spectrum-Textfield-input css_fields" id="data_region" placeholder="Data Region"></div>
+    </div>
     <div id="cookiename_div_client">
       <label> <br>
         Consent Cookie Name (Clientside): 
@@ -143,6 +149,7 @@
       var serverside = document.querySelector("#server_side");
       var swiss = document.querySelector('#switzerland');
       var cross = document.querySelector('#xdevice');
+      var dataRegion = document.querySelector('#data_region')
       
 
       window.extensionBridge.register({
@@ -160,6 +167,7 @@
             server_side.checked = info.settings.serverside;
             switzerland.checked = info.settings.swiss;
             xdevice.checked = info.settings.cross;
+            data_region.value = info.settings.dataRegion
           }
         },
 
@@ -176,7 +184,8 @@
             clientside : client_side.checked,
             serverside : server_side.checked,
             swiss : switzerland.checked,
-            cross : xdevice.checked
+            cross : xdevice.checked,
+            dataRegion : data_region.value
           }
         },
 
@@ -190,6 +199,7 @@
           language_element.invalid = !language_element.value;
           cookiename_server.invalid = !cookiename_server.value;
           topLevelDomain.invalid = !topLevelDomain.value;
+          data_region.invalid = !data_region.value;
 
           if(cookiebotID.invalid){
             cookiebotID.classList.add('invalid');
@@ -206,8 +216,11 @@
           if(language_element.invalid){
             language_element.classList.add('invalid');
           }
+          if(data_region.invalid){
+            data_region.classList.add('invalid');
+          }
           
-          if(cookiebotID.value && cookiename_client.value && cookiename_server.value && topLevelDomain.value && (ecidService.checked || websdk.checked) && (clientside.checked || serverside.checked) && language.value ){
+          if(cookiebotID.value && cookiename_client.value && cookiename_server.value && topLevelDomain.value && (ecidService.checked || websdk.checked) && (clientside.checked || serverside.checked) && language.value && dataRegion.value ){
             flag = true;
           }
 

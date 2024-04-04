@@ -31,7 +31,8 @@ try {
     serverside : extensionSettings.serverside,
     swiss : extensionSettings.swiss,
     cookiebotID : extensionSettings.cookiebotID,
-    envShort : envShort
+    envShort : envShort,
+    dataRegion : extensionSettings.dataRegion
   }
 
     // console: logs to the console if the dev console exists
@@ -312,7 +313,7 @@ CookieHelper.init = function(src,lang){
     }
     else{
       //either not activated or not containing query => show banner
-      CookiebotScript.setAttribute("data-georegions", "{'region':'CH','cbid':'47975769-adfa-4ec3-986a-3603dff279a8'}" );
+      CookiebotScript.setAttribute("data-georegions", "{'region':'CH','cbid':" + "'" + extensionSettings.dataRegion +"'"+"}");
     }
   }
   

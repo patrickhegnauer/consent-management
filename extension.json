@@ -3,7 +3,7 @@
   "iconPath": "src/resources/icons/CSS_cyan_rgb.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "2.1.16",
+  "version": "2.2.5",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
@@ -138,6 +138,16 @@
         "properties": {}
       },
       "libPath": "src/lib/actions/setChashCookie.js"
+    },
+    {
+      "displayName": "Language Switch",
+      "name": "language-switch",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/actions/languageSwitch.js"
     }
   ],
   "conditions": [
