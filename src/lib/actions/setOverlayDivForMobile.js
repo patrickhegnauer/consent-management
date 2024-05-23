@@ -27,7 +27,7 @@ module.exports = function(settings) {
                   case 'fr' :  text = 'Confirmer tout'; break
                   case 'en' :  text = 'Confirm all'; break
                   default :    text = 'Alle bestätigen'; break     }
-              //document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').innerText = text;
+              document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').innerText = text;
                         if(marketing && marketing.checked){
                           marketing.click()
                         }

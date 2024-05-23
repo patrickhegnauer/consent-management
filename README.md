@@ -38,6 +38,13 @@ This Action provides an additional method to show the Cookiebot Banner. As per d
 #### Usage
 Add this action based on the custom event "event-action-consent". So it is called only once. Make sure to add a Condition which checks if the country is Switzerland by check of the userCountry of Cookiebot is equal to CH. Also add an Max Frequency of 1 per Pageview, so it is shown only once. 
 
+### Set cHash Cookie
+#### Description:
+This Actions sets the cHash Cookie based on the available information (Data Layer, Cookie, Query String)
+
+#### Usage
+Add this Action to a rule, and check if the cookie isn't already set.
+
 ## Conditions
 ### Check Consent
 #### Description:

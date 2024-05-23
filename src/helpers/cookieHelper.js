@@ -84,31 +84,6 @@ CookieHelper.getChash = function(chash,environment){
   }
 }
 
-/*POST Function => deprecated as of 2.1.14
-CookieHelper.trackConsent = function(endpoint,environment){
- 
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'https://consent'+ environment +'.css.ch/' + endpoint, true);           //endpoint => true/min/stats/marketing       //environment => -dev/-int/-vpr
-   
-  //Send the proper header information along with the request
-  //xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.withCredentials = true;
-  xhr.onreadystatechange = function() { // Call a function when the state changes.
-      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-          var response = xhr;
-      }
-      if(this.readyState === XMLHttpRequest.DONE && this.status === 404){
-        _satellite.cookie.set('consent_css', endpoint,{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
-      }
-  }
-  //set clientside cookie if service is not available
-  xhr.onerror = function(){
-    _satellite.cookie.set('consent_css', endpoint,{ expires: 365, domain:extensionSettings.domainTopLevel, path:'/', SameSite:'Lax',secure:true });
-  }
-  //send consent data
-  xhr.send();
-  }*/
-
   //new GET Function
   CookieHelper.trackConsent = function(endpoint,environment,value){
 
@@ -307,6 +282,11 @@ CookieHelper.init = function(src,lang){
   if (currentUserPagePathname === "en") {
     currentUserPageCulture = "en";
   }
+  //fallback to language
+  if(digitalData && digitalData.page && digitalData.page.pageInfo && digitalData.page.pageInfo.language){
+    currentUserPageCulture = digitalData.page.pageInfo.language;
+  }
+
   if(CookieHelper.settings.swiss){
     if(extensionSettings.cross && document.location.search.indexOf('cssconsent=') >-1){
       //enabled and contains query => not showing banner

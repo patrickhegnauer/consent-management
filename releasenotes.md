@@ -1,4 +1,6 @@
 # Release Notes
+## Wedge v2.2.7
+- Added getChash Function
 ## Wedge v2.2.0
 - Data Region as a configuration field
 ## Wedge v2.1.16
