@@ -3,7 +3,7 @@
   "iconPath": "src/resources/icons/CSS_cyan_rgb.svg",
   "name": "css-consent-management",
   "platform": "web",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "description": "Set consent based on current regulations and CSS Standards",
   "author": {
     "name": "Patrick Hegnauer"
