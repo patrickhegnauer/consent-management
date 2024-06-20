@@ -153,13 +153,18 @@ module.exports = function(settings) {
       //web sdk
       else if(extensionSettings.websdk){
 
-        alloy("setConsent", {    
-          consent: [{      
-            standard: "Adobe",      
-            version: "1.0",      
-            value: {        general: "out"      }    }
-          ]
-        });
+        function setConsent() {
+          alloy('setConsent', {
+            consent: [{
+              standard: 'Adobe',
+              version: '1.0',
+              value: {
+                general: 'out'
+              }
+            }]
+          })
+        }
+        setTimeout(setConsent, 2000);
 
       }
 

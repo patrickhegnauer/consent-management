@@ -16,7 +16,9 @@ module.exports = function(settings) {
     'google-read-aloud',
     'baiuspider',
     'cookiebot',
-    'petalbot'
+    'petalbot',
+    'cypress',
+    'electron'
   ]
   const userAgent = navigator.userAgent.toLowerCase();
   const botFlag = false;
