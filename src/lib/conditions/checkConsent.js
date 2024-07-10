@@ -18,10 +18,11 @@ module.exports = function(settings) {
     'cookiebot',
     'petalbot',
     'cypress',
-    'electron'
+    'electron',
+    'crawl'
   ]
-  const userAgent = navigator.userAgent.toLowerCase();
-  const botFlag = false;
+  let userAgent = navigator.userAgent.toLowerCase();
+  let botFlag = false;
 
   for (let elem of botList) {
     if (userAgent.includes(elem)) {

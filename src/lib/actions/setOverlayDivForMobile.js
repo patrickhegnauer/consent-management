@@ -19,7 +19,8 @@ module.exports = function(settings) {
         mutations.forEach(function(mutation) { 
           if (mutation.attributeName === "data-template") { 
             if(mutation.target.dataset.template === 'popup'){ 
-              var lang = extensionSettings.language;
+                if(document.location.hostname.indexOf('my')>-1){
+                  var lang = _satellite.getVar('DataLayer  - page.pageInfo.language')
                         var text;
                 switch(lang){
                   case 'de' :  text = 'Alle bestätigen'; break
@@ -27,7 +28,19 @@ module.exports = function(settings) {
                   case 'fr' :  text = 'Confirmer tout'; break
                   case 'en' :  text = 'Confirm all'; break
                   default :    text = 'Alle bestätigen'; break     }
-              document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').innerText = text;
+                }
+                else{
+                  var lang = extensionSettings.language;
+                  var text;
+                  switch(lang){
+                    case 'de' :  text = 'Alle bestätigen'; break
+                    case 'it' :  text = 'Confermare tutto'; break
+                    case 'fr' :  text = 'Confirmer tout'; break
+                    case 'en' :  text = 'Confirm all'; break
+                    default :    text = 'Alle bestätigen'; break     }
+                }
+                document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll').innerText = text;
+                
                         if(marketing && marketing.checked){
                           marketing.click()
                         }
